@@ -39,7 +39,8 @@ const core = __importStar(__nccwpck_require__(186));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('milliseconds');
+            // const ms: string = core.getInput('millisecondsagain')
+            core.debug("why is this not showing up");
             core.debug(`${process.env}`);
         }
         catch (error) {
