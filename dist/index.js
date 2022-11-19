@@ -43,12 +43,16 @@ function run() {
             const myToken = core.getInput('myToken');
             var octokit = (0, github_1.getOctokit)(myToken);
             const pullRequestEvent = github_1.context.payload;
-            octokit.rest.pulls.update({
+            // const pullSender = pullRequestEvent.pull_request.user; TODO
+            // const pullRepoOwner = pullRequestEvent.repository.owner;
+            var res = yield octokit.rest.pulls.merge({
                 owner: github_1.context.repo.owner,
                 repo: github_1.context.repo.repo,
                 pull_number: pullRequestEvent.number,
-                title: "Please work"
+                sha: pullRequestEvent.pull_request.head.sha,
+                merge_method: "rebase"
             });
+            console.info(`${res}`);
             // // const ms: string = core.getInput('millisecondsagain')
             // // throw new Error('I am annoyed')
             // core.info("why is this not showing up")

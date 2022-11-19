@@ -10,14 +10,18 @@ async function run(): Promise<void> {
 
     const pullRequestEvent = context.payload as PullRequestEvent; 
 
-    octokit.rest.pulls.update(
-      {
-        owner: context.repo.owner,
-        repo: context.repo.repo,
-        pull_number: pullRequestEvent.number,
-        title: "Please work"
-      }
-    )
+    // const pullSender = pullRequestEvent.pull_request.user; TODO
+    // const pullRepoOwner = pullRequestEvent.repository.owner;
+
+    var res = await octokit.rest.pulls.merge({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      pull_number: pullRequestEvent.number,
+      sha: pullRequestEvent.pull_request.head.sha,
+      merge_method: "rebase"
+    })
+
+    console.info(`${res}`)
 
     // // const ms: string = core.getInput('millisecondsagain')
     // // throw new Error('I am annoyed')
