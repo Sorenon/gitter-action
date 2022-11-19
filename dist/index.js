@@ -40,14 +40,23 @@ const github_1 = __nccwpck_require__(5438);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            // const ms: string = core.getInput('millisecondsagain')
-            // throw new Error('I am annoyed')
-            core.info("why is this not showing up");
-            core.info(`${JSON.stringify(process.env)}`);
-            core.info(`${JSON.stringify(github_1.context)}`);
-            core.notice("I'm a notice");
-            core.error("I'm an error");
-            core.warning("I'm a warning");
+            const myToken = core.getInput('myToken');
+            var octokit = (0, github_1.getOctokit)(myToken);
+            const pullRequestEvent = github_1.context.payload;
+            octokit.rest.pulls.update({
+                owner: github_1.context.repo.owner,
+                repo: github_1.context.repo.repo,
+                pull_number: pullRequestEvent.number,
+                title: "Please work"
+            });
+            // // const ms: string = core.getInput('millisecondsagain')
+            // // throw new Error('I am annoyed')
+            // core.info("why is this not showing up")
+            // core.info(`${JSON.stringify(process.env)}`)
+            // core.info(`${JSON.stringify(context)}`)
+            // core.notice("I'm a notice")
+            // core.error("I'm an error")
+            // core.warning("I'm a warning")
         }
         catch (error) {
             if (error instanceof Error)
