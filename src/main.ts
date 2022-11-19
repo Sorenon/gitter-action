@@ -4,10 +4,14 @@ import {wait} from './wait'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('millisecondsagain')
-    throw new Error('I am annoyed')
-    core.debug("why is this not showing up")
-    core.debug(`${process.env}`)    
+    // const ms: string = core.getInput('millisecondsagain')
+    // throw new Error('I am annoyed')
+    core.info("why is this not showing up")
+    core.info(`${process.env}`)
+    core.notice("I'm a notice")
+    core.error("I'm an error")
+    core.warning("I'm a warning")
+
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

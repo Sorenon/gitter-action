@@ -39,10 +39,13 @@ const core = __importStar(__nccwpck_require__(186));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const ms = core.getInput('millisecondsagain');
-            throw new Error('I am annoyed');
-            core.debug("why is this not showing up");
-            core.debug(`${process.env}`);
+            // const ms: string = core.getInput('millisecondsagain')
+            // throw new Error('I am annoyed')
+            core.info("why is this not showing up");
+            core.info(`${process.env}`);
+            core.notice("I'm a notice");
+            core.error("I'm an error");
+            core.warning("I'm a warning");
         }
         catch (error) {
             if (error instanceof Error)
