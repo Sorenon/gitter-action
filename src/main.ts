@@ -4,7 +4,7 @@ import {wait} from './wait'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
+    const ms: string = core.getInput('millisecondsagain')
     core.debug("why is this not showing up")
     core.debug(`${process.env}`)    
   } catch (error) {
