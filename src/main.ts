@@ -7,7 +7,7 @@ async function run(): Promise<void> {
     // const ms: string = core.getInput('millisecondsagain')
     // throw new Error('I am annoyed')
     core.info("why is this not showing up")
-    core.info(`${process.env}`)
+    core.info(`${JSON.stringify(process.env)}`)
     core.notice("I'm a notice")
     core.error("I'm an error")
     core.warning("I'm a warning")
