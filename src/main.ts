@@ -13,11 +13,12 @@ async function run(): Promise<void> {
 
     const userId = pullRequestEvent.pull_request.user.id;
     
-    const fileContents = readFileSync(path.join(process.env.GITHUB_WORKSPACE!, "USERS"), {encoding:'utf8', flag:'r'})
+    const users = core.getMultilineInput('users');
+
     var found = false;
-    for (var i = 0; i < fileContents.length; i++) {
+    for (var i = 0; i < users.length; i++) {
       core.info(`${i}`)
-      if (parseInt(fileContents[i]) == userId) {
+      if (parseInt(users[i]) == userId) {
         found = true;
         break;
       }

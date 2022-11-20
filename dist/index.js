@@ -37,8 +37,6 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 const core = __importStar(__nccwpck_require__(2186));
 const github_1 = __nccwpck_require__(5438);
-const fs_1 = __nccwpck_require__(7147);
-const path = __importStar(__nccwpck_require__(1017));
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
@@ -46,11 +44,11 @@ function run() {
             var octokit = (0, github_1.getOctokit)(myToken);
             const pullRequestEvent = github_1.context.payload;
             const userId = pullRequestEvent.pull_request.user.id;
-            const fileContents = (0, fs_1.readFileSync)(path.join(process.env.GITHUB_WORKSPACE, "USERS"), { encoding: 'utf8', flag: 'r' });
+            const users = core.getMultilineInput('users');
             var found = false;
-            for (var i = 0; i < fileContents.length; i++) {
+            for (var i = 0; i < users.length; i++) {
                 core.info(`${i}`);
-                if (parseInt(fileContents[i]) == userId) {
+                if (parseInt(users[i]) == userId) {
                     found = true;
                     break;
                 }
