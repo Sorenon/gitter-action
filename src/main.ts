@@ -1,7 +1,7 @@
 import * as core from '@actions/core'
 import { context, getOctokit } from '@actions/github';
 import {PullRequestEvent} from '@octokit/webhooks-definitions/schema';
-import {wait} from './wait'
+import { readFileSync } from 'fs';
 
 async function run(): Promise<void> {
   try {
@@ -9,6 +9,21 @@ async function run(): Promise<void> {
     var octokit = getOctokit(myToken);
 
     const pullRequestEvent = context.payload as PullRequestEvent; 
+
+    const userId = pullRequestEvent.pull_request.user.id;
+    
+    const fileContents = readFileSync("USERS", {encoding:'utf8', flag:'r'})
+    var found = false;
+    for (var i = 0; i < fileContents.length; i++) {
+      core.info(`${i}`)
+      if (parseInt(fileContents[i]) == userId) {
+        found = true;
+        break;
+      }
+    }
+    if (!found) {
+      return;
+    }
 
     // const pullSender = pullRequestEvent.pull_request.user; TODO
     // const pullRepoOwner = pullRequestEvent.repository.owner;
@@ -21,7 +36,7 @@ async function run(): Promise<void> {
       merge_method: "rebase"
     })
 
-    console.info(`${JSON.stringify(res, null, 2)}`)
+    core.info(`${JSON.stringify(res, null, 2)}`)
 
     // // const ms: string = core.getInput('millisecondsagain')
     // // throw new Error('I am annoyed')
