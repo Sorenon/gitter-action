@@ -50,7 +50,7 @@ function run() {
                 repo: github_1.context.repo.repo,
                 pull_number: pullRequestEvent.number,
                 sha: pullRequestEvent.pull_request.head.sha,
-                merge_method: "rebase"
+                // merge_method: "rebase"
             });
             console.info(`${JSON.stringify(res, null, 2)}`);
             // // const ms: string = core.getInput('millisecondsagain')
