@@ -47,7 +47,7 @@ function run() {
             const users = core.getMultilineInput('users');
             var found = false;
             for (var i = 0; i < users.length; i++) {
-                core.info(`${i}`);
+                core.info(`${users[i]}`);
                 if (parseInt(users[i]) == userId) {
                     found = true;
                     break;
@@ -63,7 +63,9 @@ function run() {
                 repo: github_1.context.repo.repo,
                 pull_number: pullRequestEvent.number,
                 sha: pullRequestEvent.pull_request.head.sha,
-                merge_method: "rebase"
+                merge_method: "squash",
+                commit_title: pullRequestEvent.pull_request.title,
+                commit_message: pullRequestEvent.pull_request.body,
             });
             core.info(`${JSON.stringify(res, null, 2)}`);
             // // const ms: string = core.getInput('millisecondsagain')
