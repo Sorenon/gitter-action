@@ -21,7 +21,7 @@ async function run(): Promise<void> {
       merge_method: "rebase"
     })
 
-    console.info(`${res}`)
+    console.info(`${JSON.stringify(res, null, 2)}`)
 
     // // const ms: string = core.getInput('millisecondsagain')
     // // throw new Error('I am annoyed')
