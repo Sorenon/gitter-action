@@ -2,6 +2,7 @@ import * as core from '@actions/core'
 import { context, getOctokit } from '@actions/github';
 import {PullRequestEvent} from '@octokit/webhooks-definitions/schema';
 import { readFileSync } from 'fs';
+import * as path from 'path';
 
 async function run(): Promise<void> {
   try {
@@ -12,7 +13,7 @@ async function run(): Promise<void> {
 
     const userId = pullRequestEvent.pull_request.user.id;
     
-    const fileContents = readFileSync("USERS", {encoding:'utf8', flag:'r'})
+    const fileContents = readFileSync(path.join(process.env.GITHUB_WORKSPACE!, "USERS"), {encoding:'utf8', flag:'r'})
     var found = false;
     for (var i = 0; i < fileContents.length; i++) {
       core.info(`${i}`)
